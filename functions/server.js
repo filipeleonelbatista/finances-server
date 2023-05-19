@@ -6,7 +6,6 @@ const multer = require('multer');
 const csv = require('csv-parser');
 
 const app = express();
-const port = 3000;
 
 // Middleware para habilitar o CORS
 app.use(cors());
@@ -15,6 +14,8 @@ app.use(express.json());
 app.use(express.static('./static'));
 
 const upload = multer({ dest: './uploads/' });
+
+app.get('/', (req, res) => res.json({ message: "OK" }))
 
 app.post('/convert', upload.single('file'), (req, res) => {
   if (!req.file) {
@@ -35,7 +36,6 @@ app.post('/convert', upload.single('file'), (req, res) => {
       res.json({ financas: results });
     });
 });
-
 
 app.post('/financas', (req, res) => {
   const { financas } = req.body;
