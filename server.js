@@ -73,6 +73,6 @@ app.post('/financas', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-  console.log(`A API está rodando em http://localhost:${port}`);
+app.listen(process.env.PORT ?? 3000, () => {
+  console.log(`A API está rodando em http://localhost:${process.env.PORT ?? 3000}`);
 });
