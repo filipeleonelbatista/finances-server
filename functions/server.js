@@ -1,3 +1,4 @@
+const functions = require('firebase-functions');
 const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
@@ -76,3 +77,5 @@ app.post('/financas', (req, res) => {
 app.listen(process.env.PORT ?? 3000, () => {
   console.log(`A API está rodando em http://localhost:${process.env.PORT ?? 3000}`);
 });
+
+exports.api = functions.https.onRequest(app);
