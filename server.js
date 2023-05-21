@@ -67,7 +67,7 @@ app.post('/api/v1/financas', (req, res) => {
       console.log('O arquivo CSV foi gerado com sucesso.');
       res.json({
         status: true,
-        url_file: "https://finances-server-production.up.railway.app/api/v1/" + filePath
+        url_file: "https://finances-server-production.up.railway.app/api/v1/" + filePath.substring(1)
       })
       // res.download(filePath);
     })
