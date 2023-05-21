@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static('./static'));
+app.use(express.static('static'));
 
 const upload = multer({ dest: './uploads/' });
 
@@ -39,15 +39,15 @@ app.post('/api/v1/convert', upload.single('file'), (req, res) => {
 
 app.post('/api/v1/financas', (req, res) => {
   const { financas } = req.body;
-  console.log(financas)
+
   if (!financas || !Array.isArray(financas)) {
     return res.status(400).json({ error: 'O corpo da solicitação deve conter os dados da lista de financas.' });
   }
 
   // Define as colunas do arquivo CSV
-  const filePath = './static/financas' + Date.now() + '.csv'
+  const fileName = 'financas' + Date.now() + '.csv'
   const csvWriter = createCsvWriter({
-    path: filePath,
+    path: './static/' + fileName,
     header: [
       { id: 'amount', title: 'amount' },
       { id: 'date', title: 'date' },
@@ -60,6 +60,7 @@ app.post('/api/v1/financas', (req, res) => {
     ],
   });
 
+  console.log(process.env)
   // Escreve os dados do array de produtos no arquivo CSV
   csvWriter
     .writeRecords(financas)
@@ -67,7 +68,7 @@ app.post('/api/v1/financas', (req, res) => {
       console.log('O arquivo CSV foi gerado com sucesso.');
       res.json({
         status: true,
-        url_file: "https://finances-server-production.up.railway.app/api/v1" + filePath.substring(1)
+        url_file: "https://finances-server-production.up.railway.app/" + fileName
       })
       // res.download(filePath);
     })

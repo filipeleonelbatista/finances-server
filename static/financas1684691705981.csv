@@ -1,0 +1,3 @@
+amount,date,paymentDate,description,category,paymentStatus,isEnabled,isFavorited
+1200,1684533435326,1684533435326,Salário,Ganhos,Pago,false,false
+1200,1684533435326,1684533435326,Despesas,Cartão,Pago,true,false
