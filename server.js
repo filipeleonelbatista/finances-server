@@ -1,4 +1,3 @@
-const functions = require('firebase-functions');
 const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
@@ -18,7 +17,7 @@ const upload = multer({ dest: './uploads/' });
 
 app.get('/', (req, res) => res.json({ message: "OK" }))
 
-app.post('/convert', upload.single('file'), (req, res) => {
+app.post('/api/v1/convert', upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'Nenhum arquivo foi enviado.' });
   }
@@ -38,7 +37,7 @@ app.post('/convert', upload.single('file'), (req, res) => {
     });
 });
 
-app.post('/financas', (req, res) => {
+app.post('/api/v1/financas', (req, res) => {
   const { financas } = req.body;
   console.log(financas)
   if (!financas || !Array.isArray(financas)) {
@@ -77,5 +76,3 @@ app.post('/financas', (req, res) => {
 app.listen(process.env.PORT ?? 3000, () => {
   console.log(`A API está rodando em http://localhost:${process.env.PORT ?? 3000}`);
 });
-
-exports.api = functions.https.onRequest(app);
