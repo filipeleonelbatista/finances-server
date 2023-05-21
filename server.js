@@ -65,7 +65,11 @@ app.post('/api/v1/financas', (req, res) => {
     .writeRecords(financas)
     .then(() => {
       console.log('O arquivo CSV foi gerado com sucesso.');
-      res.download(filePath);
+      res.json({
+        status: true,
+        url_file: "https://finances-server-production.up.railway.app/api/v1/" + filePath
+      })
+      // res.download(filePath);
     })
     .catch((error) => {
       console.error('Ocorreu um erro ao gerar o arquivo CSV:', error);
